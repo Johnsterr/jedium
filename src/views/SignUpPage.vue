@@ -14,6 +14,7 @@
                 type="text"
                 class="form-control form-control-lg"
                 placeholder="Username"
+                v-model="username"
               />
             </fieldset>
             <fieldset class="form-group">
@@ -21,6 +22,7 @@
                 type="email"
                 class="form-control form-control-lg"
                 placeholder="Email"
+                v-model="email"
               />
             </fieldset>
             <fieldset class="form-group">
@@ -28,6 +30,7 @@
                 type="password"
                 class="form-control form-control-lg"
                 placeholder="Password"
+                v-model="password"
               />
             </fieldset>
             <button
@@ -46,6 +49,13 @@
 <script>
 export default {
   name: "SignUp",
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+    };
+  },
   computed: {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting;
@@ -53,7 +63,15 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.commit("signUpStart");
+      this.$store
+        .dispatch("signUpStart", {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        })
+        .then((user) => {
+          this.$router.push({name: "home"});
+        });
     },
   },
 };

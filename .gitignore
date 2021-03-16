@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+/public/main.css
 
 # local env files
 .env.local
