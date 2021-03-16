@@ -1,4 +1,5 @@
 import authApi from "@/api/auth";
+import {setItem} from "@/utils/storageWorker";
 
 const state = {
   isSubmitting: false,
@@ -34,6 +35,7 @@ const actions = {
         .signUp(credentials)
         .then(response => {
           context.commit("signUpSuccess", response.data.user);
+          setItem("accesToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch(result => {

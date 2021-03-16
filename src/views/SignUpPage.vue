@@ -71,6 +71,7 @@ export default {
         })
         .then((user) => {
           this.$router.push({name: "home"});
+          console.log(user);
         });
     },
   },
