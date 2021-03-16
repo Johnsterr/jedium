@@ -5,9 +5,12 @@
         <div class="col-6 col-xs-12">
           <h1 class="text-xs-center">Sign Up</h1>
           <p class="text-xs-center">
-            <router-link :to="{name: 'signin'}">Have an account?</router-link>
+            <router-link :to="{name: 'home'}">Have an account?</router-link>
           </p>
-          <!-- Validation -->
+          <validation-errors
+            v-if="validationErrors"
+            :validation-errors="validationErrors"
+          ></validation-errors>
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
               <input
@@ -47,8 +50,13 @@
 </template>
 
 <script>
+import ValidationErrors from "../components/ValidationErrors.vue";
+
 export default {
   name: "SignUp",
+  components: {
+    ValidationErrors,
+  },
   data() {
     return {
       username: "",
@@ -60,18 +68,20 @@ export default {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting;
     },
+    validationErrors() {
+      return this.$store.state.auth.validationErrors;
+    },
   },
   methods: {
     onSubmit() {
       this.$store
-        .dispatch("signUpStart", {
+        .dispatch("signUp", {
           username: this.username,
           email: this.email,
           password: this.password,
         })
-        .then((user) => {
+        .then(() => {
           this.$router.push({name: "home"});
-          console.log(user);
         });
     },
   },
