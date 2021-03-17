@@ -8,38 +8,51 @@ const state = {
   isLoggedIn: null,
 };
 
+export const mutationTypes = {
+  signUpStart: "[auth] signUpStart",
+  signUpSuccess: "[auth] signUpSuccess",
+  signUpFailed: "[auth] signUpFailed",
+};
+
 const mutations = {
   // Registration is starting
-  signUpStart(state) {
+  [mutationTypes.signUpStart](state) {
     state.isSubmitting = true;
     state.validationErrors = null;
   },
   // Registration is Success
-  signUpSuccess(state, payload) {
+  [mutationTypes.signUpSuccess](state, payload) {
     state.isSubmitting = false;
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
   // Validation Errors
-  signUpFailed(state, payload) {
+  [mutationTypes.signUpFailed](state, payload) {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
 };
 
+export const actionTypes = {
+  signUp: "[auth] signUp",
+};
+
 const actions = {
-  signUp(context, credentials) {
+  [actionTypes.signUp](context, credentials) {
     return new Promise(resolve => {
-      context.commit("signUpStart");
+      context.commit(mutationTypes.signUpStart);
       authApi
         .signUp(credentials)
         .then(response => {
-          context.commit("signUpSuccess", response.data.user);
+          context.commit(mutationTypes.signUpSuccess, response.data.user);
           setItem("accesToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch(result => {
-          context.commit("signUpFailed", result.response.data.errors);
+          context.commit(
+            mutationTypes.signUpFailed,
+            result.response.data.errors
+          );
         });
     });
   },
