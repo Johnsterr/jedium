@@ -12,6 +12,9 @@ export const mutationTypes = {
   signUpStart: "[auth] signUpStart",
   signUpSuccess: "[auth] signUpSuccess",
   signUpFailed: "[auth] signUpFailed",
+  signInStart: "[auth] signInStart",
+  signInSuccess: "[auth] signInSuccess",
+  signInFailed: "[auth] signInFailed",
 };
 
 const mutations = {
@@ -26,8 +29,24 @@ const mutations = {
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
-  // Validation Errors
+  // Registration Validation Errors
   [mutationTypes.signUpFailed](state, payload) {
+    state.isSubmitting = false;
+    state.validationErrors = payload;
+  },
+  // Login is starting
+  [mutationTypes.signInStart](state) {
+    state.isSubmitting = true;
+    state.validationErrors = null;
+  },
+  // Login is Success
+  [mutationTypes.signInSuccess](state, payload) {
+    state.isSubmitting = false;
+    state.currentUser = payload;
+    state.isLoggedIn = true;
+  },
+  // Login Validation Errors
+  [mutationTypes.signInFailed](state, payload) {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
@@ -35,6 +54,7 @@ const mutations = {
 
 export const actionTypes = {
   signUp: "[auth] signUp",
+  signIn: "[auth] signIn",
 };
 
 const actions = {
@@ -51,6 +71,24 @@ const actions = {
         .catch(result => {
           context.commit(
             mutationTypes.signUpFailed,
+            result.response.data.errors
+          );
+        });
+    });
+  },
+  [actionTypes.signIn](context, credentials) {
+    return new Promise(resolve => {
+      context.commit(mutationTypes.signInStart);
+      authApi
+        .signIn(credentials)
+        .then(response => {
+          context.commit(mutationTypes.signInSuccess, response.data.user);
+          setItem("accesToken", response.data.user.token);
+          resolve(response.data.user);
+        })
+        .catch(result => {
+          context.commit(
+            mutationTypes.signInFailed,
             result.response.data.errors
           );
         });
