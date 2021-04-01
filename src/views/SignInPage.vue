@@ -3,23 +3,15 @@
     <div class="container page">
       <div class="row">
         <div class="col-6 col-xs-12">
-          <h1 class="text-xs-center">Sign Up</h1>
+          <h1 class="text-xs-center">Sign In</h1>
           <p class="text-xs-center">
-            <router-link :to="{name: 'signin'}">Have an account?</router-link>
+            <router-link :to="{name: 'signup'}">Need an account?</router-link>
           </p>
           <validation-errors
             v-if="validationErrors"
             :validation-errors="validationErrors"
           ></validation-errors>
           <form @submit.prevent="onSubmit">
-            <fieldset class="form-group">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Username"
-                v-model="username"
-              />
-            </fieldset>
             <fieldset class="form-group">
               <input
                 type="email"
@@ -40,7 +32,7 @@
               class="btn btn-lg btn-primary pull-xs-right"
               :disabled="isSubmitting"
             >
-              Sign Up
+              Sign In
             </button>
           </form>
         </div>
@@ -54,13 +46,12 @@ import ValidationErrors from "../components/ValidationErrors.vue";
 import {actionTypes} from "../store/modules/auth.js";
 
 export default {
-  name: "SignUp",
+  name: "SignIn",
   components: {
     ValidationErrors,
   },
   data() {
     return {
-      username: "",
       email: "",
       password: "",
     };
@@ -76,8 +67,7 @@ export default {
   methods: {
     onSubmit() {
       this.$store
-        .dispatch(actionTypes.signUp, {
-          username: this.username,
+        .dispatch(actionTypes.signIn, {
           email: this.email,
           password: this.password,
         })
