@@ -96,8 +96,27 @@ const actions = {
   },
 };
 
+export const gettersTypes = {
+  currentUser: "[auth] currentUser",
+  isLoggedIn: "[auth] isLoggedIn",
+  isAnonymous: "[auth] isAnonymous",
+};
+
+const getters = {
+  [gettersTypes.currentUser]: state => {
+    return state.currentUser;
+  },
+  [gettersTypes.isLoggedIn]: state => {
+    return Boolean(state.isLoggedIn);
+  },
+  [gettersTypes.isAnonymous]: state => {
+    return state.isLoggedIn === false;
+  },
+};
+
 export default {
   state,
   mutations,
   actions,
+  getters,
 };
