@@ -6,12 +6,16 @@
 </template>
 
 <script>
-import NavBar from "./components/NavBar";
+import {actionTypes} from "./store/modules/auth.js";
+import NavBar from "./components/NavBar.vue";
 
 export default {
   name: "App",
   components: {
     NavBar,
+  },
+  mounted() {
+    this.$store.dispatch(actionTypes.getCurrentUser);
   },
 };
 </script>

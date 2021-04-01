@@ -3,6 +3,7 @@ import {setItem} from "@/utils/storageWorker";
 
 const state = {
   isSubmitting: false,
+  isLoading: false,
   currentUser: null,
   validationErrors: null,
   isLoggedIn: null,
@@ -15,6 +16,9 @@ export const mutationTypes = {
   signInStart: "[auth] signInStart",
   signInSuccess: "[auth] signInSuccess",
   signInFailed: "[auth] signInFailed",
+  getCurrentUserStart: "[auth] getCurrentUserStart",
+  getCurrentUserSuccess: "[auth] getCurrentUserSuccess",
+  getCurrentUserFailed: "[auth] getCurrentUserFailed",
 };
 
 const mutations = {
@@ -50,11 +54,28 @@ const mutations = {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
+  // getCurrentUser is starting
+  [mutationTypes.getCurrentUserStart](state) {
+    state.isLoading = true;
+  },
+  // getCurrentUser is Success
+  [mutationTypes.getCurrentUserSuccess](state, payload) {
+    state.isLoading = false;
+    state.currentUser = payload;
+    state.isLoggedIn = true;
+  },
+  // getCurrentUser Validation Errors
+  [mutationTypes.getCurrentUserFailed](state) {
+    state.isLoading = false;
+    state.isLoggedIn = false;
+    state.currentUser = null;
+  },
 };
 
 export const actionTypes = {
   signUp: "[auth] signUp",
   signIn: "[auth] signIn",
+  getCurrentUser: "[auth] getCurrentUser",
 };
 
 const actions = {
@@ -65,7 +86,7 @@ const actions = {
         .signUp(credentials)
         .then(response => {
           context.commit(mutationTypes.signUpSuccess, response.data.user);
-          setItem("accesToken", response.data.user.token);
+          setItem("accessToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch(result => {
@@ -83,7 +104,7 @@ const actions = {
         .signIn(credentials)
         .then(response => {
           context.commit(mutationTypes.signInSuccess, response.data.user);
-          setItem("accesToken", response.data.user.token);
+          setItem("accessToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch(result => {
@@ -91,6 +112,23 @@ const actions = {
             mutationTypes.signInFailed,
             result.response.data.errors
           );
+        });
+    });
+  },
+  [actionTypes.getCurrentUser](context) {
+    return new Promise(resolve => {
+      context.commit(mutationTypes.getCurrentUserStart);
+      authApi
+        .getCurrentUser()
+        .then(response => {
+          context.commit(
+            mutationTypes.getCurrentUserSuccess,
+            response.data.user
+          );
+          resolve(response.data.user);
+        })
+        .catch(() => {
+          context.commit(mutationTypes.getCurrentUserFailed);
         });
     });
   },
