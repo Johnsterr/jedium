@@ -13,6 +13,46 @@ const routes = [
     component: GlobalFeed,
   },
   {
+    path: "/feed",
+    name: "yourFeed",
+    component: GlobalFeed,
+  },
+  {
+    path: "/tags/:slug",
+    name: "tag",
+    component: GlobalFeed,
+  },
+  {
+    path: "/article/new",
+    name: "createArticle",
+    component: GlobalFeed,
+  },
+  {
+    path: "/article/:slug",
+    name: "article",
+    component: GlobalFeed,
+  },
+  {
+    path: "/article/:slug/edit",
+    name: "editArticle",
+    component: GlobalFeed,
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: GlobalFeed,
+  },
+  {
+    path: "/profiles/:slug",
+    name: "userProfile",
+    component: GlobalFeed,
+  },
+  {
+    path: "/profiles/:slug/favorites",
+    name: "userProfileFavorites",
+    component: GlobalFeed,
+  },
+  {
     path: "/signup",
     name: "signup",
     component: SignUpPage,
