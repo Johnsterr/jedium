@@ -39,7 +39,12 @@
           <span>Read more...</span>
         </router-link>
       </div>
-      PAGINATION
+      <feed-pagination
+        :total="total"
+        :limit="limit"
+        :current-page="currentPage"
+        :url="url"
+      ></feed-pagination>
     </div>
   </div>
 </template>
@@ -47,14 +52,26 @@
 <script>
 import {mapState} from "vuex";
 import {actionTypes} from "../store/modules/feed.js";
+import FeedPagination from "./FeedPagination";
 
 export default {
   name: "FeedView",
+  components: {
+    FeedPagination,
+  },
   props: {
     apiUrl: {
       type: String,
       required: true,
     },
+  },
+  data() {
+    return {
+      total: 500,
+      limit: 10,
+      currentPage: 5,
+      url: "/tags/dragons",
+    };
   },
   computed: {
     ...mapState({

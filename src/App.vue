@@ -49,7 +49,8 @@ a {
   color: #4599df;
 }
 
-a:hover {
+a:hover,
+a:focus {
   color: #2b71aa;
   text-decoration: none;
 }
@@ -72,5 +73,18 @@ a:hover {
   color: #fff;
   background-color: #3688ca;
   border-color: #236eac;
+}
+
+.page-link,
+.page-link:focus,
+.page-link:hover {
+  color: #4599df;
+}
+
+.page-item.active .page-link,
+.page-item.active .page-link:focus,
+.page-item.active .page-link:hover {
+  background-color: #4599df;
+  border-color: #4599df;
 }
 </style>
