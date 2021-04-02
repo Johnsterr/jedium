@@ -25,7 +25,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
@@ -39,10 +38,39 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #4599df;
 }
 
 .navbar-brand {
-  color: #292929 !important;
+  color: #4599df !important;
+}
+
+a {
+  color: #4599df;
+}
+
+a:hover {
+  color: #2b71aa;
+  text-decoration: none;
+}
+
+.btn-outline-primary {
+  color: #4599df;
+  border-color: #4599df;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:focus {
+  color: #fff;
+  background-color: #4599df;
+  border-color: #4599df;
+}
+
+.btn-outline-primary:active:hover,
+.btn-outline-primary:active:focus {
+  color: #fff;
+  background-color: #3688ca;
+  border-color: #236eac;
 }
 </style>
