@@ -54,6 +54,7 @@ import {mapState} from "vuex";
 import {actionTypes} from "../store/modules/feed.js";
 import FeedPagination from "./FeedPagination";
 import {limit} from "../utils/vars.js";
+import {stringify, parseUrl} from "query-string";
 
 export default {
   name: "FeedView",
@@ -84,9 +85,29 @@ export default {
     baseUrl() {
       return this.$route.path;
     },
+    offset() {
+      return this.currentPage * limit - limit;
+    },
+  },
+  watch: {
+    currentPage() {
+      this.fetchFeed();
+    },
   },
   mounted() {
-    this.$store.dispatch(actionTypes.getFeed, {apiUrl: this.apiUrl});
+    this.fetchFeed();
+  },
+  methods: {
+    fetchFeed() {
+      const parsedUrl = parseUrl(this.apiUrl);
+      const stringifiedParams = stringify({
+        limit,
+        offset: this.offset,
+        ...parseUrl.query,
+      });
+      const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
+      this.$store.dispatch(actionTypes.getFeed, {apiUrl: apiUrlWithParams});
+    },
   },
 };
 </script>
