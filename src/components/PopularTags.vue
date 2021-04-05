@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
+    <some-loader v-if="isLoading"></some-loader>
+    <error-message v-if="error"></error-message>
     <div v-if="error">Something bad happened.</div>
     <div class="sidebar" v-if="popularTags">
       <p>Popular Tags</p>
@@ -20,9 +21,15 @@
 <script>
 import {mapState} from "vuex";
 import {actionTypes} from "../store/modules/popularTags.js";
+import SomeLoader from "../components/SomeLoader.vue";
+import ErrorMessage from "../components/ErrorMessage.vue";
 
 export default {
   name: "PopularTags",
+  components: {
+    SomeLoader,
+    ErrorMessage,
+  },
   computed: {
     ...mapState({
       isLoading: (state) => state.feed.isLoading,

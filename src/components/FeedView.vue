@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
+    <some-loader v-if="isLoading"></some-loader>
+    <error-message v-if="error"></error-message>
     <div v-if="error">Something bad...</div>
     <div v-if="feed">
       <div
@@ -51,15 +52,19 @@
 
 <script>
 import {mapState} from "vuex";
-import {actionTypes} from "../store/modules/feed.js";
-import FeedPagination from "./FeedPagination";
-import {limit} from "../utils/vars.js";
 import {stringify, parseUrl} from "query-string";
+import {actionTypes} from "../store/modules/feed.js";
+import {limit} from "../utils/vars.js";
+import FeedPagination from "./FeedPagination.vue";
+import SomeLoader from "../components/SomeLoader.vue";
+import ErrorMessage from "../components/ErrorMessage.vue";
 
 export default {
   name: "FeedView",
   components: {
     FeedPagination,
+    SomeLoader,
+    ErrorMessage,
   },
   props: {
     apiUrl: {

@@ -45,6 +45,10 @@ export default {
   color: #4599df !important;
 }
 
+.home-page .banner {
+  background: #4599df;
+}
+
 a {
   color: #4599df;
 }

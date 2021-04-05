@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import auth from "./modules/auth";
-import feed from "./modules/feed";
-import popularTags from "./modules/popularTags";
+import auth from "./modules/auth.js";
+import feed from "./modules/feed.js";
+import popularTags from "./modules/popularTags.js";
 
 Vue.use(Vuex);
 
