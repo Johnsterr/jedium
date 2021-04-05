@@ -32,9 +32,9 @@ export default {
   },
   computed: {
     ...mapState({
-      isLoading: (state) => state.feed.isLoading,
-      error: (state) => state.feed.error,
-      popularTags: (state) => state.popularTags.data,
+      isLoading: state => state.feed.isLoading,
+      error: state => state.feed.error,
+      popularTags: state => state.popularTags.data,
     }),
   },
   mounted() {
