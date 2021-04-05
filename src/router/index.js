@@ -5,6 +5,7 @@ import YourFeed from "../views/YourFeed.vue";
 import TagFeed from "../views/TagFeed.vue";
 import SignUpPage from "../views/SignUpPage.vue";
 import SignInPage from "../views/SignInPage.vue";
+import ArticlePage from "../views/ArticlePage.vue";
 
 Vue.use(VueRouter);
 
@@ -32,7 +33,7 @@ const routes = [
   {
     path: "/article/:slug",
     name: "article",
-    component: GlobalFeed,
+    component: ArticlePage,
   },
   {
     path: "/article/:slug/edit",
