@@ -55,7 +55,7 @@ import SomeLoader from "../components/SomeLoader.vue";
 import ErrorMessage from "../components/ErrorMessage.vue";
 
 export default {
-  name: "article",
+  name: "articles",
   components: {
     SomeLoader,
     ErrorMessage,

@@ -32,7 +32,7 @@
           </button>
         </div>
         <router-link
-          :to="{name: 'article', params: {slug: article.slug}}"
+          :to="{name: 'articles', params: {slug: article.slug}}"
           class="preview-link"
         >
           <h1>{{ article.title }}</h1>

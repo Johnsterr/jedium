@@ -26,17 +26,17 @@ const routes = [
     component: TagFeed,
   },
   {
-    path: "/article/new",
+    path: "/articles/new",
     name: "createArticle",
     component: GlobalFeed,
   },
   {
-    path: "/article/:slug",
-    name: "article",
+    path: "/articles/:slug",
+    name: "articles",
     component: ArticlePage,
   },
   {
-    path: "/article/:slug/edit",
+    path: "/articles/:slug/edit",
     name: "editArticle",
     component: GlobalFeed,
   },
