@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import GlobalFeed from "../views/GlobalFeed.vue";
+import YourFeed from "../views/YourFeed.vue";
+import TagFeed from "../views/TagFeed.vue";
 import SignUpPage from "../views/SignUpPage.vue";
 import SignInPage from "../views/SignInPage.vue";
 
@@ -15,12 +17,12 @@ const routes = [
   {
     path: "/feed",
     name: "yourFeed",
-    component: GlobalFeed,
+    component: YourFeed,
   },
   {
     path: "/tags/:slug",
     name: "tag",
-    component: GlobalFeed,
+    component: TagFeed,
   },
   {
     path: "/article/new",
