@@ -44,7 +44,7 @@
           <div>
             <p>{{ article.body }}</p>
           </div>
-          Лист тэгов
+          <tag-list :tags="article.tagList"></tag-list>
         </div>
       </div>
     </div>
@@ -57,12 +57,14 @@ import {gettersTypes as authGetterTypes} from "../store/modules/auth.js";
 import {actionTypes as articleActionTypes} from "../store/modules/articles.js";
 import SomeLoader from "../components/SomeLoader.vue";
 import ErrorMessage from "../components/ErrorMessage.vue";
+import TagList from "../components/TagList.vue";
 
 export default {
   name: "articles",
   components: {
     SomeLoader,
     ErrorMessage,
+    TagList,
   },
   computed: {
     ...mapState({

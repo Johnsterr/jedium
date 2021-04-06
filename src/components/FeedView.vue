@@ -38,6 +38,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Read more...</span>
+          <tag-list :tags="article.tagList"></tag-list>
         </router-link>
       </div>
       <feed-pagination
@@ -58,6 +59,7 @@ import {limit} from "../utils/vars.js";
 import FeedPagination from "./FeedPagination.vue";
 import SomeLoader from "../components/SomeLoader.vue";
 import ErrorMessage from "../components/ErrorMessage.vue";
+import TagList from "../components/TagList.vue";
 
 export default {
   name: "FeedView",
@@ -65,6 +67,7 @@ export default {
     FeedPagination,
     SomeLoader,
     ErrorMessage,
+    TagList,
   },
   props: {
     apiUrl: {
