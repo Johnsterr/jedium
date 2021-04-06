@@ -4,6 +4,7 @@ import auth from "./modules/auth.js";
 import feed from "./modules/feed.js";
 import popularTags from "./modules/popularTags.js";
 import articles from "./modules/articles.js";
+import createArticle from "./modules/createArticle.js";
 
 Vue.use(Vuex);
 
@@ -16,5 +17,6 @@ export default new Vuex.Store({
     feed,
     popularTags,
     articles,
+    createArticle,
   },
 });
