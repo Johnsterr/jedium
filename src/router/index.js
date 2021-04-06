@@ -7,6 +7,7 @@ import SignUpPage from "../views/SignUpPage.vue";
 import SignInPage from "../views/SignInPage.vue";
 import ArticlePage from "../views/ArticlePage.vue";
 import CreateArticle from "../views/CreateArticle.vue";
+import EditArticle from "../views/EditArticle.vue";
 
 Vue.use(VueRouter);
 
@@ -39,7 +40,7 @@ const routes = [
   {
     path: "/articles/:slug/edit",
     name: "editArticle",
-    component: GlobalFeed,
+    component: EditArticle,
   },
   {
     path: "/settings",
