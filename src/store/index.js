@@ -6,6 +6,7 @@ import popularTags from "./modules/popularTags.js";
 import articles from "./modules/articles.js";
 import createArticle from "./modules/createArticle.js";
 import editArticle from "./modules/editArticle.js";
+import settings from "./modules/settings.js";
 
 Vue.use(Vuex);
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
     articles,
     createArticle,
     editArticle,
+    settings,
   },
 });

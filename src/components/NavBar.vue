@@ -83,15 +83,6 @@ export default {
       isLoggedIn: gettersTypes.isLoggedIn,
       isAnonymous: gettersTypes.isAnonymous,
     }),
-    // currentUser() {
-    //   return this.$store.getters[gettersTypes.currentUser];
-    // },
-    // isLoggedIn() {
-    //   return this.$store.getters[gettersTypes.isLoggedIn];
-    // },
-    // isAnonymous() {
-    //   return this.$store.getters[gettersTypes.isAnonymous];
-    // },
   },
 };
 </script>

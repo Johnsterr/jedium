@@ -28,7 +28,7 @@ export default {
         title: "",
         description: "",
         body: "",
-        taglist: [],
+        tagList: [],
       },
     };
   },
