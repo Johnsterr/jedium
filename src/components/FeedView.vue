@@ -27,9 +27,13 @@
             </router-link>
             <span class="date">{{ article.createdAt }}</span>
           </div>
-          <button class="btn btn-sm pull-xs-right btn-outline-primary">
-            <i class="ion-heart"></i> &nbsp; <span class="counter">0</span>
-          </button>
+          <div class="pull-xs-right">
+            <favorite-button
+              :is-favorited="article.favorited"
+              :article-slug="article.slug"
+              :favorites-count="article.favoritesCount"
+            ></favorite-button>
+          </div>
         </div>
         <router-link
           :to="{name: 'articles', params: {slug: article.slug}}"
@@ -57,9 +61,10 @@ import {stringify, parseUrl} from "query-string";
 import {actionTypes} from "../store/modules/feed.js";
 import {limit} from "../utils/vars.js";
 import FeedPagination from "./FeedPagination.vue";
-import SomeLoader from "../components/SomeLoader.vue";
-import ErrorMessage from "../components/ErrorMessage.vue";
-import TagList from "../components/TagList.vue";
+import SomeLoader from "./SomeLoader.vue";
+import ErrorMessage from "./ErrorMessage.vue";
+import TagList from "./TagList.vue";
+import FavoriteButton from "./FavoriteButton.vue";
 
 export default {
   name: "FeedView",
@@ -68,6 +73,7 @@ export default {
     SomeLoader,
     ErrorMessage,
     TagList,
+    FavoriteButton,
   },
   props: {
     apiUrl: {
