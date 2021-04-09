@@ -2,7 +2,6 @@
   <div>
     <some-loader v-if="isLoading"></some-loader>
     <error-message v-if="error"></error-message>
-    <div v-if="error">Something bad...</div>
     <div v-if="feed">
       <div
         class="article-preview"
@@ -84,7 +83,6 @@ export default {
   data() {
     return {
       limit,
-      url: "/tags/dragons",
     };
   },
   computed: {
@@ -105,6 +103,9 @@ export default {
   },
   watch: {
     currentPage() {
+      this.fetchFeed();
+    },
+    apiUrl() {
       this.fetchFeed();
     },
   },
