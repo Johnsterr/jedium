@@ -1,5 +1,5 @@
-import authApi from "@/api/auth";
-import {setItem} from "@/utils/storageWorker";
+import authApi from "@/api/auth.js";
+import {setItem} from "@/api/token.js";
 
 const state = {
   isSubmitting: false,
