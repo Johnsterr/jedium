@@ -1,7 +1,7 @@
 <template>
   <div class="banner">
     <div class="container">
-      <h1>Jedium</h1>
+      <h1 class="logo-font">Jedium</h1>
       <p>Очередной клон Medium</p>
     </div>
   </div>
