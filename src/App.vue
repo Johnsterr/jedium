@@ -1,21 +1,22 @@
 <template>
   <div id="app">
-    <nav-bar></nav-bar>
+    <the-header></the-header>
     <router-view />
   </div>
 </template>
 
 <script>
-import {actionTypes} from "./store/modules/auth.js";
-import NavBar from "./components/NavBar.vue";
+import {AUTH_ACTIONS} from "./store/actions.type.js";
+
+import TheHeader from "./views/global/TheHeader.vue";
 
 export default {
   name: "App",
   components: {
-    NavBar,
+    TheHeader,
   },
   mounted() {
-    this.$store.dispatch(actionTypes.getCurrentUser);
+    this.$store.dispatch(AUTH_ACTIONS.getCurrentUser);
   },
 };
 </script>
@@ -28,7 +29,7 @@ export default {
   color: #2c3e50;
 }
 
-#nav {
+/* #nav {
   padding: 30px;
 }
 
@@ -99,5 +100,5 @@ a:focus {
 .page-item.active .page-link:hover {
   background-color: #4599df;
   border-color: #4599df;
-}
+} */
 </style>

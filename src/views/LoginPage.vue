@@ -2,10 +2,10 @@
   <div class="auth-page">
     <div class="container page">
       <div class="row">
-        <div class="col-6 col-xs-12">
-          <h1 class="text-xs-center">Sign In</h1>
+        <div class="col-md-6 offset-md-3 col-xs-12">
+          <h1 class="text-xs-center">Авторизация</h1>
           <p class="text-xs-center">
-            <router-link :to="{name: 'signup'}">Need an account?</router-link>
+            <router-link :to="{name: 'register'}">Нужен аккаунт?</router-link>
           </p>
           <validation-errors
             v-if="validationErrors"
@@ -14,16 +14,16 @@
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
               <input
-                type="email"
                 class="form-control form-control-lg"
+                type="email"
                 placeholder="Email"
                 v-model="email"
               />
             </fieldset>
             <fieldset class="form-group">
               <input
-                type="password"
                 class="form-control form-control-lg"
+                type="password"
                 placeholder="Password"
                 v-model="password"
               />
@@ -32,7 +32,7 @@
               class="btn btn-lg btn-primary pull-xs-right"
               :disabled="isSubmitting"
             >
-              Sign In
+              Войти
             </button>
           </form>
         </div>
@@ -43,8 +43,9 @@
 
 <script>
 import {mapState} from "vuex";
+import {AUTH_ACTIONS} from "../store/actions.type.js";
+
 import ValidationErrors from "../components/ValidationErrors.vue";
-import {actionTypes} from "../store/modules/auth.js";
 
 export default {
   name: "SignIn",
@@ -72,7 +73,7 @@ export default {
   methods: {
     onSubmit() {
       this.$store
-        .dispatch(actionTypes.signIn, {
+        .dispatch(AUTH_ACTIONS.login, {
           email: this.email,
           password: this.password,
         })

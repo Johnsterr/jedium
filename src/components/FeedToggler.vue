@@ -33,7 +33,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {gettersTypes} from "../store/modules/auth.js";
+import {AUTH_GETTERS} from "../store/getters.type.js";
 
 export default {
   name: "FeedToggler",
@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: gettersTypes.isLoggedIn,
+      isLoggedIn: AUTH_GETTERS.isLoggedIn,
     }),
     routeName() {
       return this.$route.name;

@@ -1,10 +1,10 @@
 import axios from "@/api/axios.js";
 
-const signUp = credentials => {
+const register = credentials => {
   return axios.post("/users", {user: credentials});
 };
 
-const signIn = credentials => {
+const login = credentials => {
   return axios.post("/users/login", {user: credentials});
 };
 
@@ -19,8 +19,8 @@ const updateCurrentUser = currentUserInput => {
 };
 
 export default {
-  signUp,
-  signIn,
+  register,
+  login,
   getCurrentUser,
   updateCurrentUser,
 };

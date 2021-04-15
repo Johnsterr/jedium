@@ -58,9 +58,10 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
+import {AUTH_GETTERS} from "../store/getters.type.js";
+// import {AUTH_ACTIONS} from "../store/actions.type.js";
 import FeedView from "../components/FeedView.vue";
 import {actionTypes as userProfileActionTypes} from "../store/modules/userProfile.js";
-import {gettersTypes as authGetterTypes} from "../store/modules/auth.js";
 
 export default {
   name: "userProfile",
@@ -74,7 +75,7 @@ export default {
       userProfile: (state) => state.userProfile.data,
     }),
     ...mapGetters({
-      currentUser: authGetterTypes.currentUser,
+      currentUser: AUTH_GETTERS.currentUser,
     }),
     isCurrentUserProfile() {
       if (!this.currentUser || !this.userProfile) {

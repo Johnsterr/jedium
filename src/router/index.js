@@ -1,10 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import GlobalFeed from "../views/GlobalFeed.vue";
 import YourFeed from "../views/YourFeed.vue";
 import TagFeed from "../views/TagFeed.vue";
-import SignUpPage from "../views/SignUpPage.vue";
-import SignInPage from "../views/SignInPage.vue";
+import RegisterPage from "../views/RegisterPage.vue";
+import LoginPage from "../views/LoginPage.vue";
 import ArticlePage from "../views/ArticlePage.vue";
 import CreateArticle from "../views/CreateArticle.vue";
 import EditArticle from "../views/EditArticle.vue";
@@ -31,7 +32,7 @@ const routes = [
   },
   {
     path: "/articles/new",
-    name: "createArticle",
+    name: "new-article",
     component: CreateArticle,
   },
   {
@@ -60,14 +61,14 @@ const routes = [
     component: UserProfile,
   },
   {
-    path: "/signup",
-    name: "signup",
-    component: SignUpPage,
+    path: "/login",
+    name: "login",
+    component: LoginPage,
   },
   {
-    path: "/signin",
-    name: "signin",
-    component: SignInPage,
+    path: "/register",
+    name: "register",
+    component: RegisterPage,
   },
 ];
 

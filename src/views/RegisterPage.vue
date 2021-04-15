@@ -2,10 +2,10 @@
   <div class="auth-page">
     <div class="container page">
       <div class="row">
-        <div class="col-6 col-xs-12">
-          <h1 class="text-xs-center">Sign Up</h1>
+        <div class="col-md-6 offset-md-3 col-xs-12">
+          <h1 class="text-xs-center">Регистрация</h1>
           <p class="text-xs-center">
-            <router-link :to="{name: 'signin'}">Have an account?</router-link>
+            <router-link :to="{name: 'login'}"> Уже есть аккаунт? </router-link>
           </p>
           <validation-errors
             v-if="validationErrors"
@@ -14,25 +14,25 @@
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
               <input
-                type="text"
                 class="form-control form-control-lg"
-                placeholder="Username"
+                type="text"
+                placeholder="Имя пользователя"
                 v-model="username"
               />
             </fieldset>
             <fieldset class="form-group">
               <input
-                type="email"
                 class="form-control form-control-lg"
-                placeholder="Email"
+                type="email"
+                placeholder="Ваш Email"
                 v-model="email"
               />
             </fieldset>
             <fieldset class="form-group">
               <input
-                type="password"
                 class="form-control form-control-lg"
-                placeholder="Password"
+                type="password"
+                placeholder="Пароль"
                 v-model="password"
               />
             </fieldset>
@@ -40,7 +40,7 @@
               class="btn btn-lg btn-primary pull-xs-right"
               :disabled="isSubmitting"
             >
-              Sign Up
+              Зарегистрироваться
             </button>
           </form>
         </div>
@@ -51,11 +51,12 @@
 
 <script>
 import {mapState} from "vuex";
+import {AUTH_ACTIONS} from "../store/actions.type.js";
+
 import ValidationErrors from "../components/ValidationErrors.vue";
-import {actionTypes} from "../store/modules/auth.js";
 
 export default {
-  name: "SignUp",
+  name: "register",
   components: {
     ValidationErrors,
   },
@@ -81,7 +82,7 @@ export default {
   methods: {
     onSubmit() {
       this.$store
-        .dispatch(actionTypes.signUp, {
+        .dispatch(AUTH_ACTIONS.register, {
           username: this.username,
           email: this.email,
           password: this.password,

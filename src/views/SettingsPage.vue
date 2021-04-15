@@ -74,10 +74,9 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
-import {
-  gettersTypes as authGettersTypes,
-  actionTypes as authActionTypes,
-} from "../store/modules/auth.js";
+import {AUTH_GETTERS} from "../store/getters.type.js";
+import {AUTH_ACTIONS} from "../store/actions.type.js";
+
 import ValidationErrors from "../components/ValidationErrors.vue";
 
 export default {
@@ -91,7 +90,7 @@ export default {
       validationErrors: (state) => state.settings.validationErrors,
     }),
     ...mapGetters({
-      currentUser: authGettersTypes.currentUser,
+      currentUser: AUTH_GETTERS.currentUser,
     }),
     form() {
       return {
@@ -105,12 +104,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch(authActionTypes.updateCurrentUser, {
+      this.$store.dispatch(AUTH_ACTIONS.updateCurrentUser, {
         currentUserInput: this.form,
       });
     },
     logout() {
-      this.$store.dispatch(authActionTypes.logout).then(() => {
+      this.$store.dispatch(AUTH_ACTIONS.logout).then(() => {
         this.$router.push({name: "home"});
       });
     },

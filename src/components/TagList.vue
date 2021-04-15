@@ -1,7 +1,11 @@
 <template>
   <ul class="tag-list">
-    <li v-for="tag in tags" :key="tag" class="tag-default tag-pill tag-outline">
-      {{ tag }}
+    <li
+      class="tag-default tag-pill tag-outline"
+      v-for="(tag, index) in tags"
+      :key="index"
+    >
+      <span>{{ tag }}</span>
     </li>
   </ul>
 </template>
@@ -12,7 +16,7 @@ export default {
   props: {
     tags: {
       type: Array,
-      required: true,
+      required: false,
     },
   },
 };

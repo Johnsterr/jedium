@@ -53,8 +53,9 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
-import {gettersTypes as authGetterTypes} from "../store/modules/auth.js";
+import {AUTH_GETTERS} from "../store/getters.type.js";
 import {actionTypes as articleActionTypes} from "../store/modules/articles.js";
+
 import SomeLoader from "../components/SomeLoader.vue";
 import ErrorMessage from "../components/ErrorMessage.vue";
 import TagList from "../components/TagList.vue";
@@ -73,7 +74,7 @@ export default {
       article: (state) => state.articles.data,
     }),
     ...mapGetters({
-      currentUser: authGetterTypes.currentUser,
+      currentUser: AUTH_GETTERS.currentUser,
     }),
     isAuthor() {
       if (!this.currentUser || !this.article) {

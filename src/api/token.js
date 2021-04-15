@@ -19,6 +19,6 @@ export const destroyToken = key => {
   try {
     localStorage.removeItem(key);
   } catch (e) {
-    console.log("Error deleting data from LocalStorage");
+    console.log("Error deleting data from LocalStorage:", e);
   }
 };

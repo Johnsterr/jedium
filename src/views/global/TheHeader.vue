@@ -11,19 +11,21 @@
             :to="{name: 'home'}"
             active-class="active"
             exact
-            >Home</router-link
           >
+            Главная
+          </router-link>
         </li>
-        <!-- Template for Logged User -->
+        <!-- Шаблон, если пользователь вошел в систему -->
         <template v-if="isLoggedIn">
           <li class="nav-item">
             <router-link
               class="nav-link"
-              :to="{name: 'createArticle'}"
+              :to="{name: 'new-article'}"
               active-class="active"
               exact
-              ><i class="ion-compose"></i> &nbsp; New Article</router-link
             >
+              <i class="ion-compose"></i>&nbsp;Новый пост
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link
@@ -31,8 +33,9 @@
               :to="{name: 'settings'}"
               active-class="active"
               exact
-              ><i class="ion-gear-a"></i> &nbsp; Settings</router-link
             >
+              <i class="ion-gear-a"></i>&nbsp;Настройки
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link
@@ -40,30 +43,33 @@
               :to="{name: 'userProfile', params: {slug: currentUser.username}}"
               active-class="active"
               exact
-              ><img class="user-pic" :src="currentUser.image" alt="user_logo" />
-              &nbsp; {{ currentUser.username }}</router-link
             >
+              <img class="user-pic" :src="currentUser.image" alt="" />
+              &nbsp;{{ currentUser.username }}
+            </router-link>
           </li>
         </template>
-        <!-- Template for Not logged User -->
+        <!-- Шаблон, если пользователь не вошел в систему -->
         <template v-if="isAnonymous">
           <li class="nav-item">
             <router-link
               class="nav-link"
-              :to="{name: 'signin'}"
+              :to="{name: 'login'}"
               active-class="active"
               exact
-              >Sign In</router-link
             >
+              Войти
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link
               class="nav-link"
-              :to="{name: 'signup'}"
+              :to="{name: 'register'}"
               active-class="active"
               exact
-              >Sign Up</router-link
             >
+              Регистрация
+            </router-link>
           </li>
         </template>
       </ul>
@@ -73,15 +79,15 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {gettersTypes} from "../store/modules/auth.js";
+import {AUTH_GETTERS} from "../../store/getters.type.js";
 
 export default {
-  name: "NavBar",
+  name: "TheHeader",
   computed: {
     ...mapGetters({
-      currentUser: gettersTypes.currentUser,
-      isLoggedIn: gettersTypes.isLoggedIn,
-      isAnonymous: gettersTypes.isAnonymous,
+      currentUser: AUTH_GETTERS.currentUser,
+      isLoggedIn: AUTH_GETTERS.isLoggedIn,
+      isAnonymous: AUTH_GETTERS.isAnonymous,
     }),
   },
 };
