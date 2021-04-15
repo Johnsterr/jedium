@@ -1,7 +1,8 @@
 import authApi from "@/api/auth.js";
 import {setItem, destroyToken} from "@/api/token.js";
 import {AUTH_ACTIONS} from "../actions.type.js";
-import {AUTH_GETTERS} from '../getters.type.js';
+import {AUTH_GETTERS} from "../getters.type.js";
+import {AUTH_MUTATIONS} from "../mutations.type.js";
 
 const state = {
   isSubmitting: false,
@@ -11,83 +12,62 @@ const state = {
   isLoggedIn: null,
 };
 
-export const mutationTypes = {
-  // Регистрация
-  RegisterStart: "[Auth] Registration Start...",
-  RegisterSuccess: "[Auth] Registration Success",
-  RegisterFailed: "[Auth] Registration Failed",
-  // Авторизация
-  signInStart: "[Auth] signInStart",
-  signInSuccess: "[Auth] signInSuccess",
-  signInFailed: "[Auth] signInFailed",
-  // Получение данных о пользователе
-  getCurrentUserStart: "[Auth] getCurrentUserStart",
-  getCurrentUserSuccess: "[Auth] getCurrentUserSuccess",
-  getCurrentUserFailed: "[Auth] getCurrentUserFailed",
-  // Обновление информации о пользователе
-  updateCurrentUserStart: "[Auth] updateCurrentUserStart",
-  updateCurrentUserSuccess: "[Auth] updateCurrentUserSuccess",
-  updateCurrentUserFailed: "[Auth] updateCurrentUserFailed",
-  // Выход
-  logout: "[Auth] Logout",
-};
-
 const mutations = {
-  // Registration is starting
-  [mutationTypes.RegisterStart](state) {
+  // Регистрация
+  [AUTH_MUTATIONS.registerStart](state) {
     state.isSubmitting = true;
     state.validationErrors = null;
   },
-  // Registration is Success
-  [mutationTypes.RegisterSuccess](state, payload) {
+  [AUTH_MUTATIONS.registerSuccess](state, payload) {
     state.isSubmitting = false;
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
-  // Registration Validation Errors
-  [mutationTypes.RegisterFailed](state, payload) {
+  [AUTH_MUTATIONS.registerFailed](state, payload) {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
-  // Login is starting
-  [mutationTypes.signInStart](state) {
+
+  // Авторизация
+  [AUTH_MUTATIONS.loginStart](state) {
     state.isSubmitting = true;
     state.validationErrors = null;
   },
-  // Login is Success
-  [mutationTypes.signInSuccess](state, payload) {
+  [AUTH_MUTATIONS.loginSuccess](state, payload) {
     state.isSubmitting = false;
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
-  // Login Validation Errors
-  [mutationTypes.signInFailed](state, payload) {
+  [AUTH_MUTATIONS.loginFailed](state, payload) {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
-  // getCurrentUser is starting
-  [mutationTypes.getCurrentUserStart](state) {
+
+  // Получение данных о пользователе
+  [AUTH_MUTATIONS.getCurrentUserStart](state) {
     state.isLoading = true;
   },
-  // getCurrentUser is Success
-  [mutationTypes.getCurrentUserSuccess](state, payload) {
+  [AUTH_MUTATIONS.getCurrentUserSuccess](state, payload) {
     state.isLoading = false;
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
-  // getCurrentUser Validation Errors
-  [mutationTypes.getCurrentUserFailed](state) {
+  [AUTH_MUTATIONS.getCurrentUserFailed](state) {
     state.isLoading = false;
     state.isLoggedIn = false;
     state.currentUser = null;
   },
-  [mutationTypes.updateCurrentUserStart]() {},
-  [mutationTypes.updateCurrentUserSuccess](state, payload) {
+
+  // Обновление данных пользователя
+  [AUTH_MUTATIONS.updateCurrentUserStart]() {},
+  [AUTH_MUTATIONS.updateCurrentUserSuccess](state, payload) {
     state.currentUser = null;
     state.currentUser = payload;
   },
-  [mutationTypes.updateCurrentUserFailed]() {},
-  [mutationTypes.logout](state) {
+  [AUTH_MUTATIONS.updateCurrentUserFailed]() {},
+
+  // Выход из системы
+  [AUTH_MUTATIONS.logout](state) {
     state.currentUser = null;
     state.isLoggedIn = false;
   },
@@ -97,17 +77,17 @@ const actions = {
   // Регистрация
   [AUTH_ACTIONS.register](context, credentials) {
     return new Promise(resolve => {
-      context.commit(mutationTypes.RegisterStart);
+      context.commit(AUTH_MUTATIONS.registerStart);
       authApi
         .register(credentials)
         .then(response => {
-          context.commit(mutationTypes.RegisterSuccess, response.data.user);
+          context.commit(AUTH_MUTATIONS.registerSuccess, response.data.user);
           setItem("accessToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch(result => {
           context.commit(
-            mutationTypes.RegisterFailed,
+            AUTH_MUTATIONS.registerFailed,
             result.response.data.errors
           );
         });
@@ -116,17 +96,17 @@ const actions = {
   // Авторизация
   [AUTH_ACTIONS.login](context, credentials) {
     return new Promise(resolve => {
-      context.commit(mutationTypes.signInStart);
+      context.commit(AUTH_MUTATIONS.loginStart);
       authApi
         .login(credentials)
         .then(response => {
-          context.commit(mutationTypes.signInSuccess, response.data.user);
+          context.commit(AUTH_MUTATIONS.loginSuccess, response.data.user);
           setItem("accessToken", response.data.user.token);
           resolve(response.data.user);
         })
         .catch(result => {
           context.commit(
-            mutationTypes.signInFailed,
+            AUTH_MUTATIONS.loginFailed,
             result.response.data.errors
           );
         });
@@ -135,34 +115,34 @@ const actions = {
   // Получение данных пользователя
   [AUTH_ACTIONS.getCurrentUser](context) {
     return new Promise(resolve => {
-      context.commit(mutationTypes.getCurrentUserStart);
+      context.commit(AUTH_MUTATIONS.getCurrentUserStart);
       authApi
         .getCurrentUser()
         .then(response => {
           context.commit(
-            mutationTypes.getCurrentUserSuccess,
+            AUTH_MUTATIONS.getCurrentUserSuccess,
             response.data.user
           );
           resolve(response.data.user);
         })
         .catch(() => {
-          context.commit(mutationTypes.getCurrentUserFailed);
+          context.commit(AUTH_MUTATIONS.getCurrentUserFailed);
         });
     });
   },
   // Обновление информации пользователя
   [AUTH_ACTIONS.updateCurrentUser](context, {currentUserInput}) {
     return new Promise(resolve => {
-      context.commit(mutationTypes.updateCurrentUserStart);
+      context.commit(AUTH_MUTATIONS.updateCurrentUserStart);
       authApi
         .updateCurrentUser(currentUserInput)
         .then(user => {
-          context.commit(mutationTypes.updateCurrentUserSuccess, user);
+          context.commit(AUTH_MUTATIONS.updateCurrentUserSuccess, user);
           resolve(user);
         })
         .catch(result => {
           context.commit(
-            mutationTypes.updateCurrentUserFailed,
+            AUTH_MUTATIONS.updateCurrentUserFailed,
             result.response.data.errors
           );
         });
@@ -172,7 +152,7 @@ const actions = {
   [AUTH_ACTIONS.logout](context) {
     return new Promise(resolve => {
       destroyToken("accessToken");
-      context.commit(mutationTypes.logout);
+      context.commit(AUTH_MUTATIONS.logout);
       resolve();
     });
   },

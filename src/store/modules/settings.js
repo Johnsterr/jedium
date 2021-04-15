@@ -1,4 +1,4 @@
-import {mutationTypes as authMutationTypes} from "./auth.js";
+import {AUTH_MUTATIONS as SETTINGS_MUTATIONS} from "../mutations.type.js";
 
 const state = {
   isSubmitting: false,
@@ -6,14 +6,15 @@ const state = {
 };
 
 const mutations = {
-  [authMutationTypes.updateCurrentUserStart](state) {
+  // Обновление настроек пользователя
+  [SETTINGS_MUTATIONS.updateCurrentUserStart](state) {
     state.isSubmitting = true;
     state.validationErrors = null;
   },
-  [authMutationTypes.updateCurrentUserSuccess](state) {
+  [SETTINGS_MUTATIONS.updateCurrentUserSuccess](state) {
     state.isSubmitting = false;
   },
-  [authMutationTypes.updateCurrentUserFailed](state, payload) {
+  [SETTINGS_MUTATIONS.updateCurrentUserFailed](state, payload) {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },

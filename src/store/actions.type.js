@@ -1,7 +1,7 @@
 export const AUTH_ACTIONS = {
   register: "[Auth] Register",
   login: "[Auth] Login",
-  logout: "[Auth] Logout",
+  logout: "[Auth] Logout (Action)",
   getCurrentUser: "[Auth] Get Current User",
   updateCurrentUser: "[Auth] Update Current User",
 };
