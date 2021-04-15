@@ -1,4 +1,4 @@
-import axios from "./axios";
+import axios from "@/api/axios.js";
 
 const getUrl = slug => `/articles/${slug}/favorite`;
 
