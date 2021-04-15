@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <router-link class="navbar-brand" :to="{name: 'home'}"
-        >Jedium</router-link
-      >
+      <router-link class="navbar-brand" :to="{name: 'home'}">
+        Jedium
+      </router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
           <router-link
@@ -79,7 +79,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {AUTH_GETTERS} from "../../store/getters.type.js";
+import {AUTH_GETTERS} from "@/store/getters.type.js";
 
 export default {
   name: "TheHeader",

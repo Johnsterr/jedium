@@ -2,18 +2,21 @@
   <div id="app">
     <the-header></the-header>
     <router-view />
+    <the-footer></the-footer>
   </div>
 </template>
 
 <script>
-import {AUTH_ACTIONS} from "./store/actions.type.js";
+import {AUTH_ACTIONS} from "@/store/actions.type.js";
 
 import TheHeader from "./views/global/TheHeader.vue";
+import TheFooter from "./views/global/TheFooter.vue";
 
 export default {
   name: "App",
   components: {
     TheHeader,
+    TheFooter,
   },
   mounted() {
     this.$store.dispatch(AUTH_ACTIONS.getCurrentUser);
