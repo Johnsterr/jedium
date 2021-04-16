@@ -12,10 +12,10 @@
                 class="btn btn-sm btn-outline-secondary action-btn"
                 :to="{name: 'settings'}"
               >
-                <i class="ion-gear-a"></i>&nbsp;Редактировать настройки профиля
+                <i class="ion-gear-a"></i>&nbsp;Редактировать профиль
               </router-link>
             </div>
-            <div v-if="isLoggedIn">
+            <div v-if="isLoggedIn && !isCurrentUserProfile">
               <button
                 class="btn btn-sm btn-secondary action-btn"
                 v-if="userProfile.following"
@@ -78,8 +78,8 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
-import {AUTH_GETTERS} from "../store/getters.type.js";
-import {PROFILE_ACTIONS} from "../store/actions.type.js";
+import {AUTH_GETTERS} from "@/store/getters.type.js";
+import {PROFILE_ACTIONS} from "@/store/modules/profile.js";
 
 import FeedView from "../components/FeedView.vue";
 
@@ -90,9 +90,10 @@ export default {
   },
   computed: {
     ...mapState({
-      isLoading: (state) => state.userProfile.isLoading,
-      error: (state) => state.userProfile.error,
-      userProfile: (state) => state.userProfile.data,
+      isLoading: (state) => state.profile.isLoading,
+      isSubmitting: (state) => state.profile.isSubmitting,
+      error: (state) => state.profile.error,
+      userProfile: (state) => state.profile.data,
     }),
     ...mapGetters({
       currentUser: AUTH_GETTERS.currentUser,
@@ -136,7 +137,7 @@ export default {
       });
     },
     unfollow() {
-      this.$store.dispatch(PROFILE_ACTIONS.userProfileFollow, {
+      this.$store.dispatch(PROFILE_ACTIONS.userProfileUnfollow, {
         slug: this.userProfileSlug,
         isFollowing: !this.isFollowing,
       });

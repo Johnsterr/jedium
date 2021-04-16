@@ -9,7 +9,7 @@ import createArticle from "./modules/createArticle.js";
 import editArticle from "./modules/editArticle.js";
 import settings from "./modules/settings.js";
 import favorites from "./modules/favorites.js";
-import userProfile from "./modules/userProfile.js";
+import profile from "./modules/profile.js";
 
 Vue.use(Vuex);
 
@@ -26,6 +26,6 @@ export default new Vuex.Store({
     editArticle,
     settings,
     favorites,
-    userProfile,
+    profile,
   },
 });
