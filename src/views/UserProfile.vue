@@ -15,7 +15,7 @@
                 <i class="ion-gear-a"></i>&nbsp;Редактировать настройки профиля
               </router-link>
             </div>
-            <div v-if="isLoggedIn">
+            <div v-if="isLoggedIn && !isCurrentUserProfile">
               <button
                 class="btn btn-sm btn-secondary action-btn"
                 v-if="userProfile.following"
@@ -52,7 +52,8 @@
                     params: {slug: userProfile.username},
                   }"
                 >
-                  Мои посты
+                  <span v-if="isCurrentUserProfile">Мои посты</span>
+                  <span v-else>Посты {{ userProfile.username }}</span>
                 </router-link>
               </li>
               <li class="nav-item">

@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import auth from "./modules/auth.js";
 import feed from "./modules/feed.js";
-import popularTags from "./modules/popularTags.js";
+import tags from "./modules/tags.js";
 import articles from "./modules/articles.js";
 import createArticle from "./modules/createArticle.js";
 import editArticle from "./modules/editArticle.js";
@@ -20,7 +20,7 @@ export default new Vuex.Store({
   modules: {
     auth, // auth: auth
     feed,
-    popularTags,
+    tags,
     articles,
     createArticle,
     editArticle,

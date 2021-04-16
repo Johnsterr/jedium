@@ -19,6 +19,13 @@ export const AUTH_MUTATIONS = {
   logout: "[Auth] Logout (Mutation)",
 };
 
+export const FAVORITES_MUTATIONS = {
+  // Отслеживание поста
+  addToFavoritesStart: "[Favorites] Add to Favorites Start",
+  addToFavoritesSuccess: "[Favorites] Add to Favorites Success",
+  addToFavoritesFailed: "[Favorites] Add to Favorites Failed",
+};
+
 export const PROFILE_MUTATIONS = {
   // Получение данных профиля
   getUserProfileStart: "[Profile] Get User Profile Start",

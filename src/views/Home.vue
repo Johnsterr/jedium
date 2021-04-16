@@ -1,25 +1,29 @@
 <template>
   <div class="home-page">
-    <main-banner></main-banner>
+    <MainBanner></MainBanner>
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
-          <feed-toggle></feed-toggle>
+          <!-- <FeedToggle></FeedToggle> -->
+          <router-view></router-view>
         </div>
+        <PopularTags></PopularTags>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import MainBanner from "../components/MainBanner.vue";
-import FeedToggle from "../components/FeedToggle.vue";
+import MainBanner from "./global/MainBanner.vue";
+// import FeedToggle from "../components/FeedToggle.vue";
+import PopularTags from "../components/PopularTags.vue";
 
 export default {
   name: "Home",
   components: {
     MainBanner,
-    FeedToggle,
+    // FeedToggle,
+    PopularTags,
   },
 };
 </script>

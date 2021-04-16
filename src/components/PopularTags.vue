@@ -1,18 +1,18 @@
 <template>
-  <div>
-    <some-loader v-if="isLoading"></some-loader>
-    <error-message v-if="error"></error-message>
-    <div v-if="error">Something bad happened.</div>
-    <div class="sidebar" v-if="popularTags">
+  <div class="col-md-3">
+    <SomeLoader v-if="isLoading"></SomeLoader>
+    <ErrorMessage v-if="error"></ErrorMessage>
+    <div class="sidebar" v-if="tags">
       <p>Popular Tags</p>
       <div class="tag-list">
         <router-link
-          v-for="tag in popularTags"
-          :key="tag"
-          :to="{name: 'tag', params: {slug: tag}}"
           class="tag-default tag-pill"
-          >{{ tag }}</router-link
+          v-for="(tag, index) in tags"
+          :key="index"
+          :to="{name: 'home-tag-feed', params: {slug: tag}}"
         >
+          {{ tag }}
+        </router-link>
       </div>
     </div>
   </div>
@@ -20,7 +20,8 @@
 
 <script>
 import {mapState} from "vuex";
-import {actionTypes} from "../store/modules/popularTags.js";
+import {TAGS_ACTION} from "../store/actions.type.js";
+
 import SomeLoader from "../components/SomeLoader.vue";
 import ErrorMessage from "../components/ErrorMessage.vue";
 
@@ -32,13 +33,13 @@ export default {
   },
   computed: {
     ...mapState({
-      isLoading: state => state.feed.isLoading,
-      error: state => state.feed.error,
-      popularTags: state => state.popularTags.data,
+      isLoading: (state) => state.tags.isLoading,
+      error: (state) => state.tags.error,
+      tags: (state) => state.tags.data,
     }),
   },
   mounted() {
-    this.$store.dispatch(actionTypes.getPopularTags);
+    this.$store.dispatch(TAGS_ACTION.getPopularTags);
   },
 };
 </script>
