@@ -1,7 +1,7 @@
 <template>
   <div>
-    <some-loader v-if="isLoading"></some-loader>
-    <error-message v-if="error"></error-message>
+    <SomeLoader v-if="isLoading"></SomeLoader>
+    <ErrorMessage v-if="error"></ErrorMessage>
     <div v-if="feed">
       <div
         class="article-preview"
@@ -60,6 +60,7 @@ import {stringify, parseUrl} from "query-string";
 import {actionTypes} from "../store/modules/feed.js";
 import {limit} from "../utils/vars.js";
 import FeedPagination from "./FeedPagination.vue";
+
 import SomeLoader from "./SomeLoader.vue";
 import ErrorMessage from "./ErrorMessage.vue";
 import TagList from "./TagList.vue";
@@ -88,8 +89,8 @@ export default {
   computed: {
     ...mapState({
       isLoading: (state) => state.feed.isLoading,
-      feed: (state) => state.feed.data,
       error: (state) => state.feed.error,
+      feed: (state) => state.feed.data,
     }),
     currentPage() {
       return Number(this.$route.query.page || "1");

@@ -52,7 +52,8 @@
                     params: {slug: userProfile.username},
                   }"
                 >
-                  Мои посты
+                  <span v-if="isCurrentUserProfile">Мои посты</span>
+                  <span v-else>Посты {{ userProfile.username }}</span>
                 </router-link>
               </li>
               <li class="nav-item">

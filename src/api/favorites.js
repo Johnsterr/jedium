@@ -1,15 +1,15 @@
 import axios from "@/api/axios.js";
 
-const getUrl = slug => `/articles/${slug}/favorite`;
-
 const addToFavorites = slug => {
-  const url = getUrl(slug);
-  return axios.post(url).then(response => response.data.article);
+  return axios
+    .post(`/articles/${slug}/favorite`)
+    .then(response => response.data.article);
 };
 
 const removeFromFavorites = slug => {
-  const url = getUrl(slug);
-  return axios.delete(url).then(response => response.data.article);
+  return axios
+    .delete(`/articles/${slug}/favorite`)
+    .then(response => response.data.article);
 };
 
 export default {

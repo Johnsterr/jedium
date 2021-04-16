@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import MainBanner from "../components/MainBanner.vue";
+import MainBanner from "./global/MainBanner.vue";
 import FeedToggler from "../components/FeedToggler.vue";
 import FeedView from "../components/FeedView.vue";
 import PopularTags from "../components/PopularTags.vue";
