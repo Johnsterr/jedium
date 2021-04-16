@@ -5,19 +5,3 @@ export const AUTH_ACTIONS = {
   getCurrentUser: "[Auth] Get Current User",
   updateCurrentUser: "[Auth] Update Current User",
 };
-<<<<<<< HEAD
-=======
-
-export const TAGS_ACTION = {
-  getPopularTags: "[Tags] Get Popular Tags",
-};
-
-export const FAVORITES_ACTIONS = {
-  addToFavorites: "[Favorites] Add to Favorites",
-};
-
-export const PROFILE_ACTIONS = {
-  getUserProfile: "[Profile] Get User Profile",
-  userProfileFollow: "[Profile] Following User",
-};
->>>>>>> master

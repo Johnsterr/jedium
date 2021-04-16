@@ -1,6 +1,15 @@
 import favoritesApi from "@/api/favorites.js";
-import {FAVORITES_ACTIONS} from "../actions.type.js";
-import {FAVORITES_MUTATIONS} from "../mutations.type.js";
+
+export const FAVORITES_ACTIONS = {
+  addToFavorites: "[Favorites] Add to Favorites",
+};
+
+export const FAVORITES_MUTATIONS = {
+  // Отслеживание поста
+  addToFavoritesStart: "[Favorites] Add to Favorites Start",
+  addToFavoritesSuccess: "[Favorites] Add to Favorites Success",
+  addToFavoritesFailed: "[Favorites] Add to Favorites Failed",
+};
 
 const mutations = {
   [FAVORITES_MUTATIONS.addToFavoritesStart]() {},

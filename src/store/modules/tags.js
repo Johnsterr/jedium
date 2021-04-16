@@ -1,10 +1,13 @@
-import popularTagsApi from "@/api/tags";
-import {TAGS_ACTION} from "../actions.type.js";
+import tagsApi from "@/api/tags";
 
 const state = {
   data: null,
   isLoading: false,
   error: null,
+};
+
+export const TAGS_ACTION = {
+  getPopularTags: "[Tags] Get Popular Tags",
 };
 
 export const mutationTypes = {
@@ -31,7 +34,7 @@ const actions = {
   [TAGS_ACTION.getPopularTags](context) {
     return new Promise(resolve => {
       context.commit(mutationTypes.getPopularTagsStart);
-      popularTagsApi
+      tagsApi
         .getPopularTags()
         .then(tags => {
           context.commit(mutationTypes.getPopularTagsSuccess, tags);

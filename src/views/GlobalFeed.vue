@@ -1,15 +1,13 @@
 <template>
   <div class="home-page">
-    <main-banner></main-banner>
+    <MainBanner></MainBanner>
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
           <feed-toggler></feed-toggler>
           <feed-view :api-url="apiUrl"></feed-view>
         </div>
-        <div class="col-md-3">
-          <popular-tags></popular-tags>
-        </div>
+        <PopularTags></PopularTags>
       </div>
     </div>
   </div>

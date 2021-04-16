@@ -20,7 +20,7 @@
 
 <script>
 import {mapState} from "vuex";
-import {TAGS_ACTION} from "../store/actions.type.js";
+import {TAGS_ACTION} from "../store/modules/tags.js";
 
 import SomeLoader from "../components/SomeLoader.vue";
 import ErrorMessage from "../components/ErrorMessage.vue";

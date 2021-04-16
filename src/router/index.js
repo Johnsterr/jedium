@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import GlobalFeed from "../views/GlobalFeed.vue";
 import YourFeed from "../views/YourFeed.vue";
 import TagFeed from "../views/TagFeed.vue";
 import RegisterPage from "../views/RegisterPage.vue";
@@ -16,24 +17,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    component: () => import("@/views/Home.vue"),
-    children: [
-      {
-        path: "",
-        name: "home",
-        component: () => import("@/views/HomeGlobal.vue"),
-      },
-      {
-        path: "my-feed",
-        name: "home-my-feed",
-        component: () => import("@/views/HomeMyFeed.vue"),
-      },
-      {
-        path: "tag/:slug",
-        name: "home-tag-feed",
-        component: () => import("@/views/HomeTagFeed.vue"),
-      },
-    ],
+    name: "home",
+    component: GlobalFeed,
   },
   {
     path: "/feed",
@@ -42,7 +27,7 @@ const routes = [
   },
   {
     path: "/tags/:slug",
-    name: "tag",
+    name: "home-tag-feed",
     component: TagFeed,
   },
   {
