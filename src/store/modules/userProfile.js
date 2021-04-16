@@ -1,4 +1,6 @@
 import userProfileApi from "@/api/userProfile.js";
+import {PROFILE_ACTIONS} from "../actions.type.js";
+import {PROFILE_MUTATIONS} from "../mutations.type.js";
 
 const state = {
   data: null,
@@ -6,42 +8,58 @@ const state = {
   error: null,
 };
 
-export const mutationTypes = {
-  getUserProfileStart: "[UserProfile] Get UserProfile start",
-  getUserProfileSuccess: "[UserProfile] Get UserProfile success",
-  getUserProfileFailed: "[UserProfile] Get UserProfile failed",
-};
-
 const mutations = {
-  [mutationTypes.getUserProfileStart](state) {
+  [PROFILE_MUTATIONS.getUserProfileStart](state) {
     state.isLoading = true;
     state.data = null;
   },
-  [mutationTypes.getUserProfileSuccess](state, payload) {
+  [PROFILE_MUTATIONS.getUserProfileSuccess](state, payload) {
     state.isLoading = false;
     state.data = payload;
   },
-  [mutationTypes.getUserProfileFailed](state) {
+  [PROFILE_MUTATIONS.getUserProfileFailed](state) {
     state.isLoading = false;
   },
-};
 
-export const actionTypes = {
-  getUserProfile: "[UserProfile] Get UserProfile",
+  [PROFILE_MUTATIONS.userProfileFollowingStart]() {},
+  [PROFILE_MUTATIONS.userProfileFollowingSuccess](state, payload) {
+    state.data = payload;
+  },
+  [PROFILE_MUTATIONS.userProfileFollowingFailed]() {},
 };
 
 const actions = {
-  [actionTypes.getUserProfile](context, {slug}) {
+  [PROFILE_ACTIONS.getUserProfile](context, {slug}) {
     return new Promise(resolve => {
-      context.commit(mutationTypes.getUserProfileStart);
+      context.commit(PROFILE_MUTATIONS.getUserProfileStart);
       userProfileApi
         .getUserProfile(slug)
         .then(userProfile => {
-          context.commit(mutationTypes.getUserProfileSuccess, userProfile);
+          context.commit(PROFILE_MUTATIONS.getUserProfileSuccess, userProfile);
           resolve(userProfile);
         })
         .catch(() => {
-          context.commit(mutationTypes.getUserProfileFailed);
+          context.commit(PROFILE_MUTATIONS.getUserProfileFailed);
+        });
+    });
+  },
+
+  [PROFILE_ACTIONS.userProfileFollow](context, {slug, isFollowing}) {
+    return new Promise(resolve => {
+      context.commit(PROFILE_MUTATIONS.userProfileFollowingStart);
+      const promise = isFollowing
+        ? userProfileApi.userProfileUnfollow(slug)
+        : userProfileApi.userProfileFollow(slug);
+      promise
+        .then(userProfile => {
+          context.commit(
+            PROFILE_MUTATIONS.userProfileFollowingSuccess,
+            userProfile
+          );
+          resolve(userProfile);
+        })
+        .catch(() => {
+          context.commit(PROFILE_MUTATIONS.userProfileFollowingStart);
         });
     });
   },

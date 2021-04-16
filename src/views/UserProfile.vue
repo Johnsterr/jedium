@@ -7,19 +7,37 @@
             <img class="user-img" :src="userProfile.image" alt="" />
             <h4>{{ userProfile.username }}</h4>
             <p>{{ userProfile.bio }}</p>
-            <div>
-              FOLLOW USER BUTTON
+            <div v-if="isCurrentUserProfile">
               <router-link
                 class="btn btn-sm btn-outline-secondary action-btn"
-                v-if="isCurrentUserProfile"
                 :to="{name: 'settings'}"
-                >Редактировать настройки профиля</router-link
               >
+                <i class="ion-gear-a"></i>&nbsp;Редактировать настройки профиля
+              </router-link>
+            </div>
+            <div v-if="isLoggedIn">
+              <button
+                class="btn btn-sm btn-secondary action-btn"
+                v-if="userProfile.following"
+                @click.prevent="unfollow"
+              >
+                <i class="ion-plus-round"></i>&nbsp;Отписаться
+                {{ userProfile.username }}
+              </button>
+              <button
+                class="btn btn-sm btn-outline-secondary action-btn"
+                v-if="!userProfile.following"
+                @click.prevent="follow"
+              >
+                <i class="ion-plus-round"></i>&nbsp;Подписаться
+                {{ userProfile.username }}
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-md-10 offset-md-1">
@@ -33,8 +51,9 @@
                     name: 'userProfile',
                     params: {slug: userProfile.username},
                   }"
-                  >Мои посты</router-link
                 >
+                  Мои посты
+                </router-link>
               </li>
               <li class="nav-item">
                 <router-link
@@ -44,8 +63,9 @@
                     name: 'userProfileFavorites',
                     params: {slug: userProfile.username},
                   }"
-                  >Отслеживаемые посты</router-link
                 >
+                  Отслеживаемые посты
+                </router-link>
               </li>
             </ul>
           </div>
@@ -59,9 +79,9 @@
 <script>
 import {mapState, mapGetters} from "vuex";
 import {AUTH_GETTERS} from "../store/getters.type.js";
-// import {AUTH_ACTIONS} from "../store/actions.type.js";
+import {PROFILE_ACTIONS} from "../store/actions.type.js";
+
 import FeedView from "../components/FeedView.vue";
-import {actionTypes as userProfileActionTypes} from "../store/modules/userProfile.js";
 
 export default {
   name: "userProfile",
@@ -76,6 +96,7 @@ export default {
     }),
     ...mapGetters({
       currentUser: AUTH_GETTERS.currentUser,
+      isLoggedIn: AUTH_GETTERS.isLoggedIn,
     }),
     isCurrentUserProfile() {
       if (!this.currentUser || !this.userProfile) {
@@ -103,8 +124,21 @@ export default {
   },
   methods: {
     getUserProfile() {
-      this.$store.dispatch(userProfileActionTypes.getUserProfile, {
+      this.$store.dispatch(PROFILE_ACTIONS.getUserProfile, {
         slug: this.userProfileSlug,
+        isFollowing: this.isFollowing,
+      });
+    },
+    follow() {
+      this.$store.dispatch(PROFILE_ACTIONS.userProfileFollow, {
+        slug: this.userProfileSlug,
+        isFollowing: this.isFollowing,
+      });
+    },
+    unfollow() {
+      this.$store.dispatch(PROFILE_ACTIONS.userProfileFollow, {
+        slug: this.userProfileSlug,
+        isFollowing: !this.isFollowing,
       });
     },
   },
