@@ -1,5 +1,10 @@
 import axios from "@/api/axios.js";
 
+// Fetch All Articles
+const fetchArticles = apiUrl => {
+  return axios.get(apiUrl);
+};
+
 const getArticle = slug => {
   return axios.get(`/articles/${slug}`).then(response => response.data.article);
 };
@@ -21,6 +26,7 @@ const editArticle = (slug, articleInput) => {
 };
 
 export default {
+  fetchArticles,
   getArticle,
   deleteArticle,
   createArticle,

@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 import GlobalFeed from "../views/GlobalFeed.vue";
 import YourFeed from "../views/YourFeed.vue";
-import TagFeed from "../views/TagFeed.vue";
+// import TagFeed from "../views/TagFeed.vue";
 import RegisterPage from "../views/RegisterPage.vue";
 import LoginPage from "../views/LoginPage.vue";
 import ArticlePage from "../views/ArticlePage.vue";
@@ -28,7 +28,7 @@ const routes = [
   {
     path: "/tags/:slug",
     name: "home-tag-feed",
-    component: TagFeed,
+    component: () => import("@/views/HomeTagFeed"),
   },
   {
     path: "/articles/new",

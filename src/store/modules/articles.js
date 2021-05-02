@@ -1,12 +1,18 @@
 import articlesApi from "@/api/articles.js";
 
 const state = {
-  data: null,
+  articles: [],
+  articlesCount: 0,
   isLoading: false,
   error: null,
 };
 
 export const mutationTypes = {
+  // All Articles
+  fetchArticlesStart: "[Articles] Fetch Articles Start",
+  fetchArticlesSuccess: "[Articles] Fetch Articles Success",
+  fetchArticlesFailed: "[Articles] Fetch Articles Failed",
+  // Article
   getArticleStart: "[Articles] Get Article start",
   getArticleSuccess: "[Articles] Get Article success",
   getArticleFailed: "[Articles] Get Article failed",
@@ -16,6 +22,21 @@ export const mutationTypes = {
 };
 
 const mutations = {
+  // All Articles
+  [mutationTypes.fetchArticlesStart](state) {
+    state.isLoading = true;
+    state.articles = [];
+    state.articlesCount = 0;
+  },
+  [mutationTypes.fetchArticlesSuccess](state, {articles, articlesCount}) {
+    state.isLoading = false;
+    state.articles = articles;
+    state.articlesCount = articlesCount;
+  },
+  [mutationTypes.fetchArticlesFailed](state) {
+    state.isLoading = false;
+  },
+  // Article
   [mutationTypes.getArticleStart](state) {
     state.isLoading = true;
     state.data = null;
@@ -33,11 +54,27 @@ const mutations = {
 };
 
 export const actionTypes = {
+  // All Articles
+  fetchArticles: "[Articles] Get Articles",
   getArticle: "[Articles] Get Article",
   deleteArticle: "[Articles] Delete Article",
 };
 
 const actions = {
+  [actionTypes.fetchArticles](context, {apiUrl}) {
+    return new Promise(resolve => {
+      context.commit(mutationTypes.fetchArticlesStart);
+      articlesApi
+        .fetchArticles(apiUrl)
+        .then(response => {
+          context.commit(mutationTypes.fetchArticlesSuccess, response.data);
+          resolve(response.data);
+        })
+        .catch(() => {
+          context.commit(mutationTypes.fetchArticlesFailed);
+        });
+    });
+  },
   [actionTypes.getArticle](context, {slug}) {
     return new Promise(resolve => {
       context.commit(mutationTypes.getArticleStart, slug);
