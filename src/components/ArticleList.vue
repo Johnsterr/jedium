@@ -9,9 +9,12 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+import {stringify, parseUrl} from "query-string";
 import {actionTypes} from "../store/modules/articles.js";
 import SomeLoader from "./SomeLoader.vue";
 import ErrorMessage from "./ErrorMessage.vue";
+import {limit} from "../utils/vars.js";
 
 export default {
   name: "ArticleList",
@@ -42,22 +45,66 @@ export default {
       required: false,
       default: 10,
     },
+    url: {
+      type: String,
+      required: false,
+      default: "/articles",
+    },
   },
   data() {
     return {
-      currentPage: 1,
+      limit: 1,
     };
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      isLoading: (state) => state.articles.isLoading,
+      error: (state) => state.articles.error,
+      articles: (state) => state.articles.data,
+    }),
+    paramsConfig() {
+      const {type} = this;
+      const apiUrl = this.url;
+      const filters = {
+        offset: (this.currentPage - 1) * this.articlesPerPage,
+        limit: this.articlesPerPage,
+      };
+      if (this.author) {
+        filters.author = this.author;
+      }
+      if (this.tag) {
+        filters.tag = this.tag;
+      }
+      if (this.favorited) {
+        filters.favorited = this.favorited;
+      }
+      return {
+        apiUrl,
+        type,
+        filters,
+      };
+    },
+    currentPage() {
+      return Number(this.$route.query.page || "1");
+    },
+    baseUrl() {
+      return this.$route.path;
+    },
+    offset() {
+      return this.currentPage * limit - limit;
+    },
+  },
   methods: {
-    getArticles() {
-      this.$store.dispatch(actionTypes.getArticle, {
-        slug: this.$route.params.slug,
-      });
+    fetchArticles() {
+      this.$store.dispatch(actionTypes.fetchArticles, this.paramsConfig);
+    },
+    resetPagination() {
+      this.paramsConfig.offset = 0;
+      this.currentPage = 1;
     },
   },
   mounted() {
-    this.getArticles();
+    this.fetchArticles();
   },
 };
 </script>

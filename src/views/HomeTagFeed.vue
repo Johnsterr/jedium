@@ -12,7 +12,6 @@ export default {
   },
   computed: {
     tag() {
-      console.log(this.$route.params.slug)
       return this.$route.params.slug;
     },
   },

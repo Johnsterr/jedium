@@ -3,6 +3,7 @@ import articlesApi from "@/api/articles.js";
 const state = {
   articles: [],
   articlesCount: 0,
+  data: null,
   isLoading: false,
   error: null,
 };
@@ -25,13 +26,11 @@ const mutations = {
   // All Articles
   [mutationTypes.fetchArticlesStart](state) {
     state.isLoading = true;
-    state.articles = [];
-    state.articlesCount = 0;
+    state.data = null;
   },
-  [mutationTypes.fetchArticlesSuccess](state, {articles, articlesCount}) {
+  [mutationTypes.fetchArticlesSuccess](state, payload) {
     state.isLoading = false;
-    state.articles = articles;
-    state.articlesCount = articlesCount;
+    state.data = payload;
   },
   [mutationTypes.fetchArticlesFailed](state) {
     state.isLoading = false;
@@ -56,6 +55,7 @@ const mutations = {
 export const actionTypes = {
   // All Articles
   fetchArticles: "[Articles] Get Articles",
+
   getArticle: "[Articles] Get Article",
   deleteArticle: "[Articles] Delete Article",
 };
@@ -105,8 +105,27 @@ const actions = {
   },
 };
 
+const gettersTypes = {
+  articles: "[Articles] All Articles",
+  articlesCount: "[Articles] Articles Count",
+  isLoading: "[Articles] Loading Articles",
+};
+
+const getters = {
+  [gettersTypes.articles]: state => {
+    return state.data.articles;
+  },
+  [gettersTypes.articlesCount]: state => {
+    return state.data.articlesCount;
+  },
+  [gettersTypes.isLoading]: state => {
+    return state.data.isLoading;
+  },
+};
+
 export default {
   state,
   mutations,
   actions,
+  getters,
 };
