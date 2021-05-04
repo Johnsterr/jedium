@@ -6,7 +6,7 @@
 import ArticleList from "../components/ArticleList.vue";
 
 export default {
-  name: "HomeGlobal",
+  name: "HomeGlobalFeed",
   components: {
     ArticleList,
   },

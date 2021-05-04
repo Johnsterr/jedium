@@ -1,13 +1,13 @@
 <template>
   <div class="article-meta">
     <router-link
-      :to="{name: 'userProfile', params: {slug: article.author.username}}"
+      :to="{name: 'profile', params: {username: article.author.username}}"
     >
-      <img :src="article.author.image" alt="" />
+      <img :src="article.author.image" />
     </router-link>
     <div class="info">
       <router-link
-        :to="{name: 'userProfile', params: {slug: article.author.username}}"
+        :to="{name: 'profile', params: {username: article.author.username}}"
         class="author"
       >
         {{ article.author.username }}
@@ -35,11 +35,12 @@
 </template>
 
 <script>
-import {mapState, mapGetters} from "vuex";
+import {mapGetters} from "vuex";
 import {AUTH_GETTERS} from "../store/getters.type.js";
-import {FAVORITES_ACTIONS} from "@/store/actions.type.js";
+import {FAVORITES_ACTIONS} from "../store/modules/favorites.js";
 
 import ArticleActions from "../components/ArticleActions.vue";
+
 export default {
   name: "ArticleMeta",
   components: {
@@ -63,11 +64,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      isLoading: (state) => state.articles.isLoading,
-      error: (state) => state.articles.error,
-      article: (state) => state.articles.data,
-    }),
     ...mapGetters({
       currentUser: AUTH_GETTERS.currentUser,
       isLoggedIn: AUTH_GETTERS.isLoggedIn,

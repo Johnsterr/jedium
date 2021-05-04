@@ -1,8 +1,6 @@
 import articlesApi from "@/api/articles.js";
 
 const state = {
-  articles: [],
-  articlesCount: 0,
   data: null,
   isLoading: false,
   error: null,
@@ -61,11 +59,11 @@ export const actionTypes = {
 };
 
 const actions = {
-  [actionTypes.fetchArticles](context, {apiUrl}) {
+  [actionTypes.fetchArticles](context, params) {
     return new Promise(resolve => {
       context.commit(mutationTypes.fetchArticlesStart);
       articlesApi
-        .fetchArticles(apiUrl)
+        .fetchArticles(params.type, params.filters)
         .then(response => {
           context.commit(mutationTypes.fetchArticlesSuccess, response.data);
           resolve(response.data);
@@ -75,6 +73,7 @@ const actions = {
         });
     });
   },
+
   [actionTypes.getArticle](context, {slug}) {
     return new Promise(resolve => {
       context.commit(mutationTypes.getArticleStart, slug);
@@ -105,27 +104,8 @@ const actions = {
   },
 };
 
-const gettersTypes = {
-  articles: "[Articles] All Articles",
-  articlesCount: "[Articles] Articles Count",
-  isLoading: "[Articles] Loading Articles",
-};
-
-const getters = {
-  [gettersTypes.articles]: state => {
-    return state.data.articles;
-  },
-  [gettersTypes.articlesCount]: state => {
-    return state.data.articlesCount;
-  },
-  [gettersTypes.isLoading]: state => {
-    return state.data.isLoading;
-  },
-};
-
 export default {
   state,
   mutations,
   actions,
-  getters,
 };

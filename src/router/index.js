@@ -1,15 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import GlobalFeed from "../views/GlobalFeed.vue";
-import YourFeed from "../views/YourFeed.vue";
-// import TagFeed from "../views/TagFeed.vue";
-import RegisterPage from "../views/RegisterPage.vue";
-import LoginPage from "../views/LoginPage.vue";
 import ArticlePage from "../views/ArticlePage.vue";
 import CreateArticle from "../views/CreateArticle.vue";
 import EditArticle from "../views/EditArticle.vue";
-import SettingsPage from "../views/SettingsPage.vue";
 import UserProfile from "../views/UserProfile.vue";
 
 Vue.use(VueRouter);
@@ -17,18 +11,24 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: GlobalFeed,
-  },
-  {
-    path: "/feed",
-    name: "yourFeed",
-    component: YourFeed,
-  },
-  {
-    path: "/tags/:slug",
-    name: "home-tag-feed",
-    component: () => import("@/views/HomeTagFeed"),
+    component: () => import("@/views/Home.vue"),
+    children: [
+      {
+        path: "",
+        name: "home",
+        component: () => import("@/views/HomeGlobalFeed.vue"),
+      },
+      {
+        path: "my-feed",
+        name: "home-my-feed",
+        component: () => import("@/views/HomeMyFeed.vue"),
+      },
+      {
+        path: "tag/:slug",
+        name: "home-tag-feed",
+        component: () => import("@/views/HomeTagFeed.vue"),
+      },
+    ],
   },
   {
     path: "/articles/new",
@@ -46,9 +46,20 @@ const routes = [
     component: EditArticle,
   },
   {
-    path: "/settings",
-    name: "settings",
-    component: SettingsPage,
+    path: "/@:username",
+    component: () => import("@/views/UserProfile.vue"),
+    children: [
+      {
+        path: "",
+        name: "profile",
+        component: () => import("@/views/ProfileArticles.vue"),
+      },
+      {
+        name: "profile-favorites",
+        path: "favorites",
+        component: () => import("@/views/ProfileFavorited.vue"),
+      },
+    ],
   },
   {
     path: "/profiles/:slug",
@@ -63,12 +74,17 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: LoginPage,
+    component: () => import("@/views/LoginPage.vue"),
   },
   {
     path: "/register",
     name: "register",
-    component: RegisterPage,
+    component: () => import("@/views/RegisterPage.vue"),
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: () => import("@/views/SettingsPage.vue"),
   },
 ];
 

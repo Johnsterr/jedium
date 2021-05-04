@@ -2,25 +2,35 @@
   <div>
     <SomeLoader v-if="isLoading"></SomeLoader>
     <ErrorMessage v-if="error"></ErrorMessage>
-    <div v-if="articles.length === 0" class="article-preview">
-      No articles are here... yet.
+    <div v-if="data">
+      <div v-if="data.articles.length === 0" class="article-preview">
+        Постов пока еще нет...
+      </div>
+      <ArticlePreview
+        v-for="(article, index) in data.articles"
+        :article="article"
+        :key="article.title + index"
+      ></ArticlePreview>
+      <FeedPagination
+        :pages="pages"
+        :currentPage.sync="currentPage"
+      ></FeedPagination>
     </div>
   </div>
 </template>
 
 <script>
 import {mapState} from "vuex";
-import {stringify, parseUrl} from "query-string";
 import {actionTypes} from "../store/modules/articles.js";
-import SomeLoader from "./SomeLoader.vue";
-import ErrorMessage from "./ErrorMessage.vue";
-import {limit} from "../utils/vars.js";
+
+import ArticlePreview from "../components/ArticlePreview";
+import FeedPagination from "../components/FeedPagination.vue";
 
 export default {
   name: "ArticleList",
   components: {
-    SomeLoader,
-    ErrorMessage,
+    ArticlePreview,
+    FeedPagination,
   },
   props: {
     type: {
@@ -45,28 +55,22 @@ export default {
       required: false,
       default: 10,
     },
-    url: {
-      type: String,
-      required: false,
-      default: "/articles",
-    },
   },
   data() {
     return {
-      limit: 1,
+      currentPage: 1,
     };
   },
   computed: {
     ...mapState({
       isLoading: (state) => state.articles.isLoading,
       error: (state) => state.articles.error,
-      articles: (state) => state.articles.data,
+      data: (state) => state.articles.data,
     }),
     paramsConfig() {
       const {type} = this;
-      const apiUrl = this.url;
       const filters = {
-        offset: (this.currentPage - 1) * this.articlesPerPage,
+        offset: this.currentPage * this.articlesPerPage - this.articlesPerPage,
         limit: this.articlesPerPage,
       };
       if (this.author) {
@@ -79,19 +83,41 @@ export default {
         filters.favorited = this.favorited;
       }
       return {
-        apiUrl,
         type,
         filters,
       };
     },
-    currentPage() {
-      return Number(this.$route.query.page || "1");
+    pages() {
+      if (this.isLoading || this.data.articlesCount <= this.articlesPerPage) {
+        return [];
+      }
+      return [
+        ...Array(
+          Math.ceil(this.data.articlesCount / this.articlesPerPage)
+        ).keys(),
+      ].map((e) => e + 1);
     },
-    baseUrl() {
-      return this.$route.path;
+  },
+  watch: {
+    currentPage(newPage) {
+      this.paramsConfig.filters.offset = (newPage - 1) * this.articlesPerPage;
+      this.fetchArticles();
     },
-    offset() {
-      return this.currentPage * limit - limit;
+    type() {
+      this.resetPagination();
+      this.fetchArticles();
+    },
+    author() {
+      this.resetPagination();
+      this.fetchArticles();
+    },
+    tag() {
+      this.resetPagination();
+      this.fetchArticles();
+    },
+    favorited() {
+      this.resetPagination();
+      this.fetchArticles();
     },
   },
   methods: {

@@ -1,8 +1,10 @@
 import axios from "@/api/axios.js";
 
 // Fetch All Articles
-const fetchArticles = apiUrl => {
-  return axios.get(apiUrl);
+const fetchArticles = (type, params) => {
+  return axios.get("/articles" + (type === "feed" ? "/feed" : ""), {
+    params: params,
+  });
 };
 
 const getArticle = slug => {
