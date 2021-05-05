@@ -33,14 +33,15 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
-import {
-  ARTICLE_ACTIONS,
-  PROFILE_ACTIONS,
-  // FAVORITE_ADD,
-  // FAVORITE_REMOVE,
-  // FETCH_PROFILE_FOLLOW,
-  // FETCH_PROFILE_UNFOLLOW,
-} from "../store/actions.type.js";
+import {actionTypes as articleActionTypes} from "../store/modules/articles.js";
+import {PROFILE_ACTIONS} from "../store/modules/profile.js";
+// ARTICLE_ACTIONS,
+// PROFILE_ACTIONS,
+// FAVORITE_ADD,
+// FAVORITE_REMOVE,
+// FETCH_PROFILE_FOLLOW,
+// FETCH_PROFILE_UNFOLLOW,
+// } from "../store/actions.type.js";
 
 import {AUTH_GETTERS} from "../store/getters.type.js";
 
@@ -116,14 +117,18 @@ export default {
         isFollowing: !this.isFollowing,
       });
     },
-    deleteArticle() {
-      this.$store
-        .dispatch(ARTICLE_ACTIONS.deleteArticle, {
-          slug: this.$route.params.slug,
-        })
-        .then(() => {
-          this.$router.push("/");
-        });
+    async deleteArticle() {
+      try {
+        this.$store
+          .dispatch(articleActionTypes.deleteArticle, {
+            slug: this.$route.params.slug,
+          })
+          .then(() => {
+            this.$router.push("/");
+          });
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };

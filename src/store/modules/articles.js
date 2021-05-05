@@ -45,6 +45,7 @@ const mutations = {
   [mutationTypes.getArticleFailed](state) {
     state.isLoading = false;
   },
+  // Удаление поста
   [mutationTypes.deleteArticleStart]() {},
   [mutationTypes.deleteArticleSuccess]() {},
   [mutationTypes.deleteArticleFailed]() {},
