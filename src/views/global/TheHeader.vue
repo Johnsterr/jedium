@@ -79,7 +79,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {AUTH_GETTERS} from "@/store/getters.type.js";
+import {AUTH_GETTERS} from "@/store/modules/auth.js";
 
 export default {
   name: "TheHeader",

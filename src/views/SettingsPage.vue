@@ -27,7 +27,7 @@
                   placeholder="Ваше имя"
                 />
               </fieldset>
-
+              
               <fieldset class="form-group">
                 <textarea
                   class="form-control form-control-lg"
@@ -74,8 +74,7 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
-import {AUTH_GETTERS} from "../store/getters.type.js";
-import {AUTH_ACTIONS} from "../store/actions.type.js";
+import {AUTH_ACTIONS, AUTH_GETTERS} from "@/store/modules/auth.js";
 
 import ValidationErrors from "../components/ValidationErrors.vue";
 

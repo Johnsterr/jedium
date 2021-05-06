@@ -79,7 +79,7 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
-import {AUTH_GETTERS} from "@/store/getters.type.js";
+import {AUTH_GETTERS} from "@/store/modules/auth.js";
 import {PROFILE_ACTIONS} from "@/store/modules/profile.js";
 
 import FeedView from "../components/FeedView.vue";

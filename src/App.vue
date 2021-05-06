@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import {AUTH_ACTIONS} from "@/store/actions.type.js";
+import {AUTH_ACTIONS} from "@/store/modules/auth.js";
 
 import TheHeader from "./views/global/TheHeader.vue";
 import TheFooter from "./views/global/TheFooter.vue";

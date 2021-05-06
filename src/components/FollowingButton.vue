@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {PROFILE_ACTIONS} from "../store/actions.type.js";
+import {PROFILE_ACTIONS} from "@/store/modules/profile.js";
 
 export default {
   name: "FollowingButton",

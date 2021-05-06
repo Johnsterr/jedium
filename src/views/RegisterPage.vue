@@ -51,7 +51,7 @@
 
 <script>
 import {mapState} from "vuex";
-import {AUTH_ACTIONS} from "../store/actions.type.js";
+import {AUTH_ACTIONS} from "@/store/modules/auth.js";
 
 import ValidationErrors from "../components/ValidationErrors.vue";
 

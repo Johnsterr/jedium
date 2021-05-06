@@ -1,8 +1,5 @@
 import authApi from "@/api/auth.js";
 import {setItem, destroyToken} from "@/api/token.js";
-import {AUTH_ACTIONS} from "../actions.type.js";
-import {AUTH_GETTERS} from "../getters.type.js";
-import {AUTH_MUTATIONS} from "../mutations.type.js";
 
 const state = {
   isSubmitting: false,
@@ -10,6 +7,27 @@ const state = {
   currentUser: null,
   validationErrors: null,
   isLoggedIn: null,
+};
+
+export const AUTH_MUTATIONS = {
+  // Регистрация
+  registerStart: "[Auth] Registration Start",
+  registerSuccess: "[Auth] Registration Success",
+  registerFailed: "[Auth] Registration Failed",
+  // Авторизация
+  loginStart: "[Auth] Login Start",
+  loginSuccess: "[Auth] Login Success",
+  loginFailed: "[Auth] Login Failed",
+  // Получение данных о пользователе
+  getCurrentUserStart: "[Auth] Get Current User Start",
+  getCurrentUserSuccess: "[Auth] Get Current User Success",
+  getCurrentUserFailed: "[Auth] Get Current User Failed",
+  // Обновление информации о пользователе
+  updateCurrentUserStart: "[Auth] Update Current User Start",
+  updateCurrentUserSuccess: "[Auth] Update Current User Success",
+  updateCurrentUserFailed: "[Auth] Update Current User Failed",
+  // Выход из системы
+  logout: "[Auth] Logout (Mutation)",
 };
 
 const mutations = {
@@ -27,7 +45,6 @@ const mutations = {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
-
   // Авторизация
   [AUTH_MUTATIONS.loginStart](state) {
     state.isSubmitting = true;
@@ -42,7 +59,6 @@ const mutations = {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
-
   // Получение данных о пользователе
   [AUTH_MUTATIONS.getCurrentUserStart](state) {
     state.isLoading = true;
@@ -57,7 +73,6 @@ const mutations = {
     state.isLoggedIn = false;
     state.currentUser = null;
   },
-
   // Обновление данных пользователя
   [AUTH_MUTATIONS.updateCurrentUserStart]() {},
   [AUTH_MUTATIONS.updateCurrentUserSuccess](state, payload) {
@@ -65,12 +80,19 @@ const mutations = {
     state.currentUser = payload;
   },
   [AUTH_MUTATIONS.updateCurrentUserFailed]() {},
-
   // Выход из системы
   [AUTH_MUTATIONS.logout](state) {
     state.currentUser = null;
     state.isLoggedIn = false;
   },
+};
+
+export const AUTH_ACTIONS = {
+  register: "[Auth] Register",
+  login: "[Auth] Login",
+  logout: "[Auth] Logout (Action)",
+  getCurrentUser: "[Auth] Get Current User",
+  updateCurrentUser: "[Auth] Update Current User",
 };
 
 const actions = {
@@ -158,13 +180,22 @@ const actions = {
   },
 };
 
+export const AUTH_GETTERS = {
+  currentUser: "[Auth] Current User",
+  isLoggedIn: "[Auth] User isLoggedIn",
+  isAnonymous: "[Auth] User isAnonymous",
+};
+
 const getters = {
+  // Текущий пользователь
   [AUTH_GETTERS.currentUser]: state => {
     return state.currentUser;
   },
+  // Пользователь вошел в систему
   [AUTH_GETTERS.isLoggedIn]: state => {
     return Boolean(state.isLoggedIn);
   },
+  // Пользователь не вошел в систему
   [AUTH_GETTERS.isAnonymous]: state => {
     return state.isLoggedIn === false;
   },

@@ -1,4 +1,4 @@
-import {AUTH_MUTATIONS as SETTINGS_MUTATIONS} from "../mutations.type.js";
+import {AUTH_MUTATIONS as SETTINGS_MUTATIONS} from "./auth.js";
 
 const state = {
   isSubmitting: false,

@@ -59,7 +59,7 @@
 
 <script>
 import {mapGetters, mapState} from "vuex";
-import {AUTH_GETTERS} from "../store/getters.type.js";
+import {AUTH_GETTERS} from "@/store/modules/auth.js";
 import {TAGS_ACTION} from "../store/modules/tags.js";
 
 import MainBanner from "./global/MainBanner.vue";

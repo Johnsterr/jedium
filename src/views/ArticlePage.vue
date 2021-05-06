@@ -53,7 +53,7 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
-import {AUTH_GETTERS} from "../store/getters.type.js";
+import {AUTH_GETTERS} from "@/store/modules/auth.js";
 import {actionTypes as articleActionTypes} from "../store/modules/articles.js";
 
 import SomeLoader from "../components/SomeLoader.vue";

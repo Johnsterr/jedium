@@ -33,6 +33,7 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
+import {AUTH_GETTERS} from "@/store/modules/auth.js";
 import {actionTypes as articleActionTypes} from "../store/modules/articles.js";
 import {PROFILE_ACTIONS} from "../store/modules/profile.js";
 // ARTICLE_ACTIONS,
@@ -43,7 +44,6 @@ import {PROFILE_ACTIONS} from "../store/modules/profile.js";
 // FETCH_PROFILE_UNFOLLOW,
 // } from "../store/actions.type.js";
 
-import {AUTH_GETTERS} from "../store/getters.type.js";
 
 export default {
   name: "ArticleActions",

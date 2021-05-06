@@ -36,7 +36,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {AUTH_GETTERS} from "../store/getters.type.js";
+import {AUTH_GETTERS} from "@/store/modules/auth.js";
 import {FAVORITES_ACTIONS} from "../store/modules/favorites.js";
 
 import ArticleActions from "../components/ArticleActions.vue";

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {actionTypes} from "../store/modules/favorites.js";
+import {FAVORITES_ACTIONS} from "../store/modules/favorites.js";
 
 export default {
   name: "FavoriteButton",
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     handleLike() {
-      this.$store.dispatch(actionTypes.addToFavorites, {
+      this.$store.dispatch(FAVORITES_ACTIONS.addToFavorites, {
         slug: this.articleSlug,
         isFavorited: this.isFavorited,
       });
