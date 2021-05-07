@@ -44,7 +44,6 @@ import {PROFILE_ACTIONS} from "../store/modules/profile.js";
 // FETCH_PROFILE_UNFOLLOW,
 // } from "../store/actions.type.js";
 
-
 export default {
   name: "ArticleActions",
   props: {
@@ -59,7 +58,7 @@ export default {
   },
   computed: {
     ...mapState({
-      userProfile: (state) => state.userProfile.data,
+      userProfile: state => state.userProfile.data,
     }),
     ...mapGetters({
       currentUser: AUTH_GETTERS.currentUser,
