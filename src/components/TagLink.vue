@@ -2,8 +2,9 @@
   <router-link
     :to="{name: 'home-tag-feed', params: {slug: tag}}"
     class="tag-default tag-pill"
-    >{{ tag }}</router-link
   >
+    {{ tag }}
+  </router-link>
 </template>
 
 <script>

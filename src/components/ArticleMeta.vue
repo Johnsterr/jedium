@@ -14,11 +14,11 @@
       </router-link>
       <span class="date">{{ article.createdAt | date }}</span>
     </div>
-    <article-actions
+    <ArticleActions
       v-if="actions"
       :article="article"
       :is-author="isCurrentUser"
-    ></article-actions>
+    ></ArticleActions>
     <button
       v-else
       class="btn btn-sm pull-xs-right"

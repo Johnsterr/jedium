@@ -33,9 +33,9 @@ export default {
   },
   computed: {
     ...mapState({
-      isLoading: (state) => state.tags.isLoading,
-      error: (state) => state.tags.error,
-      tags: (state) => state.tags.data,
+      isLoading: state => state.tags.isLoading,
+      error: state => state.tags.error,
+      tags: state => state.tags.data,
     }),
   },
   mounted() {
